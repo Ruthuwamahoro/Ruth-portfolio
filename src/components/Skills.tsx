@@ -132,7 +132,6 @@ const Skills: React.FC<SkillsProps> = ({ isDark = true }) => {
       return () => clearTimeout(timer);
     }, [skill.level, index, selectedCategory]);
 
-    // Pentagon path with tight angles
     const pentagonPath = "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)";
     const position = getPentagonPosition(index);
     const isHovered = hoveredSkill === skill.name;

@@ -131,6 +131,60 @@ const Portfolio = () => {
                   </span>
                 </h1>
 
+                {/* Mobile Image - Between Title and Description */}
+                <div className="lg:hidden flex justify-center mb-8">
+                  <div className={`relative transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                    
+                    {/* Decorative rings */}
+                    <div className="absolute -inset-4">
+                      <div className={`w-full h-full rounded-full border-2 opacity-30 animate-spin ${
+                        isDark ? 'border-purple-500' : 'border-blue-500'
+                      }`} style={{animationDuration: '20s'}}></div>
+                    </div>
+                    <div className="absolute -inset-8">
+                      <div className={`w-full h-full rounded-full border border-dashed opacity-20 animate-spin ${
+                        isDark ? 'border-pink-500' : 'border-purple-500'
+                      }`} style={{animationDuration: '30s', animationDirection: 'reverse'}}></div>
+                    </div>
+
+                    {/* Main Image Container */}
+                    <div className="relative group">
+                      <div className={`w-64 h-64 rounded-full overflow-hidden transition-all duration-500 group-hover:scale-105 ${
+                        isDark 
+                          ? 'shadow-2xl shadow-purple-500/20 border-4 border-gray-700' 
+                          : 'shadow-2xl shadow-blue-500/20 border-4 border-white'
+                      }`}>
+                        
+                        {/* Profile Image */}
+                        <div className="w-full h-full relative overflow-hidden">
+                          <img 
+                            src="/images/my-image.jpeg" 
+                            alt="Ruth - Senior Software Developer" 
+                            className="w-full h-full object-cover object-center scale-110"
+                          />
+                        </div>
+                        
+                        {/* Hover overlay */}
+                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                          isDark 
+                            ? 'bg-gradient-to-t from-purple-900/50 to-transparent' 
+                            : 'bg-gradient-to-t from-blue-900/30 to-transparent'
+                        }`}></div>
+                      </div>
+
+                      <div className="absolute -bottom-4 -left-4 animate-bounce" style={{animationDelay: '2s'}}>
+                        <div className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          isDark 
+                            ? 'bg-gray-600 text-white' 
+                            : 'bg-gray-500 text-white'
+                        } shadow-lg`}>
+                          5+ Years
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Description */}
                 <p className={`text-xl mb-8 leading-relaxed max-w-2xl ${
                   isDark ? 'text-gray-300' : 'text-gray-600'
@@ -166,8 +220,8 @@ const Portfolio = () => {
               </div>
             </div>
 
-            {/* Image Side - Right */}
-            <div className="flex-1 flex justify-center lg:justify-end">
+            {/* Image Side - Right - Hidden on mobile, visible on desktop */}
+            <div className="hidden lg:flex flex-1 justify-center lg:justify-end">
               <div className={`relative transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                 
                 {/* Decorative rings */}
@@ -207,8 +261,6 @@ const Portfolio = () => {
                     }`}></div>
                   </div>
 
-
-                  
                   <div className="absolute -bottom-6 -left-6 animate-bounce" style={{animationDelay: '2s'}}>
                     <div className={`px-3 py-1 rounded-full text-xs font-medium ${
                       isDark 
@@ -222,10 +274,7 @@ const Portfolio = () => {
               </div>
             </div>
           </div>
-
-
         </div>
-
     </div>
   );
 

@@ -1,88 +1,6 @@
+import { skills } from '@/constants/pagesConstants';
+import { Skill } from '@/types/skills';
 import React, { useState, useEffect } from 'react';
-
-interface Skill {
-  name: string;
-  level: number;
-  icon: React.ReactNode;
-  category: string;
-  color: string;
-  description: string;
-}
-
-const skills: Skill[] = [
-  {
-    name: "Next.js",
-    level: 95,
-    icon: <div className="text-black font-bold text-lg">N</div>,
-    category: "Frontend",
-    color: "from-gray-800 to-black",
-    description: "Full-stack React framework"
-  },
-  {
-    name: "TypeScript",
-    level: 90,
-    icon: <div className="text-blue-600 font-bold text-lg">TS</div>,
-    category: "Language",
-    color: "from-blue-600 to-blue-800",
-    description: "Type-safe JavaScript"
-  },
-  {
-    name: "React",
-    level: 92,
-    icon: <div className="text-cyan-400 font-bold text-lg">⚛️</div>,
-    category: "Frontend",
-    color: "from-cyan-400 to-blue-500",
-    description: "Modern UI library"
-  },
-  {
-    name: "Tailwind CSS",
-    level: 88,
-    icon: <div className="text-teal-400 font-bold text-lg">🎨</div>,
-    category: "Styling",
-    color: "from-teal-400 to-green-500",
-    description: "Utility-first CSS framework"
-  },
-  {
-    name: "Node.js",
-    level: 85,
-    icon: <div className="text-green-500 font-bold text-lg">📗</div>,
-    category: "Backend",
-    color: "from-green-500 to-emerald-600",
-    description: "Server-side JavaScript"
-  },
-  {
-    name: "React Native",
-    level: 82,
-    icon: <div className="text-purple-500 font-bold text-lg">📱</div>,
-    category: "Mobile",
-    color: "from-purple-500 to-pink-500",
-    description: "Cross-platform mobile apps"
-  },
-  {
-    name: "GraphQL",
-    level: 78,
-    icon: <div className="text-pink-500 font-bold text-lg">🚀</div>,
-    category: "API",
-    color: "from-pink-500 to-rose-500",
-    description: "Query language for APIs"
-  },
-  {
-    name: "MongoDB",
-    level: 80,
-    icon: <div className="text-emerald-500 font-bold text-lg">🍃</div>,
-    category: "Database",
-    color: "from-emerald-500 to-teal-600",
-    description: "NoSQL database"
-  },
-  {
-    name: "Python",
-    level: 87,
-    icon: <div className="text-yellow-500 font-bold text-lg">🐍</div>,
-    category: "Language",
-    color: "from-yellow-500 to-orange-500",
-    description: "Versatile programming language"
-  }
-];
 
 const categories = ["All", "Frontend", "Backend", "Mobile", "Database", "Language", "Styling", "API"];
 
@@ -99,19 +17,14 @@ const Skills: React.FC<SkillsProps> = ({ isDark = true }) => {
     : skills.filter(skill => skill.category === selectedCategory);
 
 
-  // Pentagon formation positions - arranged to form a large pentagon
   const getPentagonPosition = (index: number) => {
     const positions = [
-      // Top pentagon (center)
       { x: 50, y: 15, scale: 1.1 },
-      // Second row (2 pentagons)
       { x: 25, y: 35, scale: 1 },
       { x: 75, y: 35, scale: 1 },
-      // Third row (3 pentagons)
       { x: 12, y: 58, scale: 0.9 },
       { x: 50, y: 58, scale: 1 },
       { x: 88, y: 58, scale: 0.9 },
-      // Fourth row (3 pentagons)
       { x: 20, y: 78, scale: 0.85 },
       { x: 50, y: 85, scale: 0.9 },
       { x: 80, y: 78, scale: 0.85 }
@@ -153,7 +66,6 @@ const Skills: React.FC<SkillsProps> = ({ isDark = true }) => {
           zIndex: isHovered ? 50 : 10
         }}
       >
-        {/* Pentagon container */}
         <div 
           className="relative mx-auto"
           style={{ 
@@ -165,7 +77,6 @@ const Skills: React.FC<SkillsProps> = ({ isDark = true }) => {
             transition: 'all 0.4s ease'
           }}
         >
-          {/* Inner pentagon with glass effect */}
           <div 
             className="absolute inset-2 bg-black/30 backdrop-blur-sm"
             style={{ clipPath: pentagonPath }}
@@ -176,7 +87,6 @@ const Skills: React.FC<SkillsProps> = ({ isDark = true }) => {
             />
           </div>
 
-          {/* Glowing border effect on hover */}
           {isHovered && (
             <div 
               className={`absolute -inset-2 bg-gradient-to-r ${skill.color} opacity-60 animate-pulse`}
@@ -184,23 +94,19 @@ const Skills: React.FC<SkillsProps> = ({ isDark = true }) => {
             />
           )}
 
-          {/* Content container */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-3 z-10">
-            {/* Colored Icon */}
             <div className={`mb-2 p-2 rounded-full bg-white/25 backdrop-blur-sm transition-all duration-300 ${
               isHovered ? 'scale-125 bg-white/35' : 'scale-100'
             }`}>
               {skill.icon}
             </div>
 
-            {/* Skill name */}
             <h3 className={`font-bold text-white mb-2 leading-tight ${
               size > 120 ? 'text-sm' : 'text-xs'
             }`}>
               {skill.name}
             </h3>
 
-            {/* Progress circle */}
             <div className={`relative mb-2 ${size > 120 ? 'w-10 h-10' : 'w-8 h-8'}`}>
               <svg className={`transform -rotate-90 ${size > 120 ? 'w-10 h-10' : 'w-8 h-8'}`} viewBox="0 0 36 36">
                 <circle 
@@ -236,7 +142,6 @@ const Skills: React.FC<SkillsProps> = ({ isDark = true }) => {
               </div>
             </div>
 
-            {/* Category tag */}
             <div className={`px-2 py-1 bg-white/25 rounded-full text-white/95 font-medium ${
               size > 120 ? 'text-xs' : 'text-xxs'
             }`} style={{ fontSize: size > 120 ? '10px' : '8px' }}>
@@ -244,7 +149,6 @@ const Skills: React.FC<SkillsProps> = ({ isDark = true }) => {
             </div>
           </div>
 
-          {/* Hover description overlay */}
           <div className={`absolute inset-0 flex items-center justify-center bg-black/85 backdrop-blur-sm transition-all duration-400 ${
             isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`} style={{ clipPath: pentagonPath }}>
@@ -255,7 +159,6 @@ const Skills: React.FC<SkillsProps> = ({ isDark = true }) => {
           </div>
         </div>
 
-        {/* Enhanced shadow effect */}
         <div 
           className={`absolute top-1 left-1/2 transform -translate-x-1/2 bg-gradient-to-r ${skill.color} transition-all duration-400 blur-xl ${
             isHovered ? 'opacity-40 scale-110' : 'opacity-15 scale-100'
@@ -303,9 +206,7 @@ const Skills: React.FC<SkillsProps> = ({ isDark = true }) => {
           ))}
         </div>
 
-        {/* Pentagon formation container */}
         <div className="relative w-full max-w-4xl mx-auto" style={{ height: '600px' }}>
-          {/* Background pentagon outline */}
           <div 
             className="absolute inset-0 opacity-10"
             style={{
@@ -318,7 +219,6 @@ const Skills: React.FC<SkillsProps> = ({ isDark = true }) => {
             }}
           />
           
-          {/* Individual pentagon skills */}
           {filteredSkills.map((skill, index) => (
             <PentagonSkill key={`${skill.name}-${selectedCategory}`} skill={skill} index={index} />
           ))}

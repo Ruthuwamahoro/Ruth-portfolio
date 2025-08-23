@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, MapPin, ChevronDown, ChevronUp, ExternalLink, TrendingUp } from 'lucide-react';
+import { experiences } from '@/constants/pagesConstants';
 
 interface ExperienceProps {
   isDark?: boolean;
@@ -12,101 +13,6 @@ const Experience = ({ isDark = true }: ExperienceProps) => {
   useEffect(() => {
     setIsVisible(true);
   }, []);
-
-  const experiences = [
-    {
-      id: 1,
-      title: "Senior Software Developer",
-      company: "TechCorp Solutions",
-      location: "Kigali, Rwanda",
-      period: "2022 - Present",
-      duration: "2+ years",
-      type: "Full-time",
-      logo: "🚀",
-      description: "Leading development of scalable web applications and mentoring junior developers.",
-      achievements: [
-        "Led a team of 5 developers in building a enterprise-level e-commerce platform",
-        "Reduced application load time by 60% through code optimization and caching strategies",
-        "Implemented CI/CD pipelines that improved deployment efficiency by 80%",
-        "Mentored 8 junior developers, with 6 receiving promotions during my tenure"
-      ],
-      technologies: ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "AWS"],
-      highlights: [
-        { icon: "👥", text: "Team Lead" },
-        { icon: "🏆", text: "Best Employee 2023" },
-        { icon: "📈", text: "40% Revenue Growth" }
-      ]
-    },
-    {
-      id: 2,
-      title: "Full Stack Developer",
-      company: "InnovateHub",
-      location: "Kigali, Rwanda",
-      period: "2020 - 2022",
-      duration: "2 years",
-      type: "Full-time",
-      logo: "💻",
-      description: "Developed and maintained multiple web applications using modern technologies.",
-      achievements: [
-        "Built 15+ responsive web applications from scratch",
-        "Integrated payment systems (Stripe, PayPal) for 10+ client projects",
-        "Collaborated with UI/UX team to improve user experience, increasing user retention by 35%",
-        "Optimized database queries, reducing response time by 45%"
-      ],
-      technologies: ["JavaScript", "React", "Express.js", "MongoDB", "Python", "Docker"],
-      highlights: [
-        { icon: "🎯", text: "15+ Projects" },
-        { icon: "⚡", text: "Performance Expert" },
-        { icon: "🤝", text: "Client Favorite" }
-      ]
-    },
-    {
-      id: 3,
-      title: "Frontend Developer",
-      company: "Digital Creators",
-      location: "Kigali, Rwanda", 
-      period: "2019 - 2020",
-      duration: "1 year",
-      type: "Full-time",
-      logo: "🎨",
-      description: "Specialized in creating beautiful, responsive user interfaces and user experiences.",
-      achievements: [
-        "Converted 20+ Figma designs into pixel-perfect React components",
-        "Improved website accessibility scores from 65% to 95% across all projects",
-        "Reduced bounce rate by 30% through better UI/UX implementation",
-        "Created reusable component library used across 8+ projects"
-      ],
-      technologies: ["HTML5", "CSS3", "JavaScript", "React", "SASS", "Bootstrap"],
-      highlights: [
-        { icon: "🎨", text: "UI/UX Expert" },
-        { icon: "📱", text: "Mobile First" },
-        { icon: "♿", text: "A11y Champion" }
-      ]
-    },
-    {
-      id: 4,
-      title: "Junior Web Developer",
-      company: "StartupLab",
-      location: "Kigali, Rwanda",
-      period: "2018 - 2019",
-      duration: "1 year",
-      type: "Full-time",
-      logo: "🌱",
-      description: "Started my journey in web development, learning and contributing to various projects.",
-      achievements: [
-        "Successfully completed 25+ small to medium web projects",
-        "Learned and implemented 5+ new technologies during first year",
-        "Contributed to open-source projects with 100+ GitHub commits",
-        "Received 'Rising Star' award for exceptional learning curve"
-      ],
-      technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "WordPress"],
-      highlights: [
-        { icon: "🌟", text: "Rising Star" },
-        { icon: "📚", text: "Fast Learner" },
-        { icon: "💪", text: "Growth Mindset" }
-      ]
-    }
-  ];
 
   const toggleExpanded = (id: number) => {
     setExpandedItem(expandedItem === id ? null : id);
@@ -136,16 +42,13 @@ const Experience = ({ isDark = true }: ExperienceProps) => {
         </p>
       </div>
 
-      {/* Timeline */}
       <div className="relative">
-        {/* Timeline Line */}
         <div className={`absolute left-0 md:left-1/2 transform md:-translate-x-0.5 w-1 h-full rounded-full ${
           isDark 
             ? 'bg-gradient-to-b from-purple-500 via-pink-500 to-cyan-500' 
             : 'bg-gradient-to-b from-blue-600 via-purple-600 to-pink-600'
         } shadow-lg`} />
 
-        {/* Experience Items */}
         {experiences.map((exp, index) => (
           <div
             key={exp.id}
@@ -154,14 +57,12 @@ const Experience = ({ isDark = true }: ExperienceProps) => {
             }`}
             style={{ animationDelay: `${index * 0.2}s` }}
           >
-            {/* Timeline Node */}
             <div className={`absolute left-0 md:left-1/2 transform md:-translate-x-1/2 -translate-x-0.5 w-5 h-5 rounded-full border-4 transition-all duration-300 ${
               isDark 
                 ? 'bg-gray-900 border-purple-500 shadow-xl shadow-purple-500/50' 
                 : 'bg-white border-blue-600 shadow-xl shadow-blue-600/30'
             } z-10 hover:scale-110`} />
 
-            {/* Content */}
             <div className={`ml-10 md:ml-0 w-full ${
               index % 2 === 0 
                 ? 'md:pr-12 md:text-left md:w-1/2' 
@@ -169,7 +70,6 @@ const Experience = ({ isDark = true }: ExperienceProps) => {
             }`}>
               <div className={`group transition-all duration-500 cursor-pointer rounded-2xl p-6 backdrop-blur-sm hover:scale-105`} onClick={() => toggleExpanded(exp.id)}>
                 
-                {/* Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center mb-3">
@@ -219,7 +119,6 @@ const Experience = ({ isDark = true }: ExperienceProps) => {
                     </div>
                   </div>
 
-                  {/* Expand Button */}
                   <button className={`p-2 rounded-full transition-all duration-200 ${
                     isDark 
                       ? 'hover:bg-gray-700/50 text-gray-400 hover:text-purple-300' 
@@ -232,15 +131,13 @@ const Experience = ({ isDark = true }: ExperienceProps) => {
                   </button>
                 </div>
 
-                {/* Description */}
                 <p className={`text-sm ${
                   isDark ? 'text-gray-300' : 'text-gray-600'
                 } mb-4 leading-relaxed`}>
                   {exp.description}
                 </p>
 
-                {/* Highlights */}
-                <div className="flex flex-wrap gap-2 mb-4">
+=                <div className="flex flex-wrap gap-2 mb-4">
                   {exp.highlights.map((highlight, i) => (
                     <div key={i} className={`flex items-center px-3 py-1 rounded-full text-xs font-medium ${
                       isDark 
@@ -253,7 +150,6 @@ const Experience = ({ isDark = true }: ExperienceProps) => {
                   ))}
                 </div>
 
-                {/* Technologies Preview */}
                 <div className="flex flex-wrap gap-2">
                   {exp.technologies.slice(0, 4).map((tech) => (
                     <span key={tech} className={`px-3 py-1 text-xs rounded-full font-medium ${
@@ -275,7 +171,6 @@ const Experience = ({ isDark = true }: ExperienceProps) => {
                   )}
                 </div>
 
-                {/* Expanded Content */}
                 {expandedItem === exp.id && (
                   <div className={`mt-6 pt-6 border-t ${
                     isDark ? 'border-gray-700/50' : 'border-gray-200/50'
@@ -300,7 +195,6 @@ const Experience = ({ isDark = true }: ExperienceProps) => {
                       ))}
                     </ul>
 
-                    {/* All Technologies */}
                     <div>
                       <h4 className={`font-bold text-lg mb-3 ${
                         isDark ? 'text-white' : 'text-gray-900'

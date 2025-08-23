@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Download, Eye, Sun, Moon,  User, FolderOpen, Mail, Home } from 'lucide-react';
 import Skills from './Skills';
 import Experience from './Experience';
+import { projects } from '@/constants/pagesConstants';
 
 const Portfolio = () => {
   const [isDark, setIsDark] = useState(true);
@@ -28,38 +29,12 @@ const Portfolio = () => {
     }, 600);
   };
 
-  const projects = [
-    {
-      id: 1,
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with Next.js, TypeScript, and Stripe integration",
-      image: "./images/image4.png",
-      tech: ["Next.js", "TypeScript", "Stripe", "MongoDB"],
-      status: "Live"
-    },
-    {
-      id: 2,
-      title: "Task Management App",
-      description: "Real-time collaborative task management with drag-and-drop functionality",
-      image: "./images/image5.png",
-      tech: ["React", "Node.js", "Socket.io", "PostgreSQL"],
-      status: "Development"
-    },
-    {
-      id: 3,
-      title: "AI Chat Bot",
-      description: "Intelligent chatbot using OpenAI API with context awareness",
-      image: "./images/image2.jpeg",
-      tech: ["Python", "FastAPI", "OpenAI", "Redis"],
-      status: "Live"
-    }
-  ];
+
 
   const themeClasses = isDark 
     ? 'bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white' 
     : 'bg-gray-50 text-gray-900';
 
-  // Theme Toggle Only (positioned fixed)
   const ThemeToggle = () => (
     <button
       onClick={toggleTheme}
@@ -73,7 +48,6 @@ const Portfolio = () => {
     </button>
   );
 
-  // Home Page
   const HomePage = () => (
     <div className={`min-h-screen ${themeClasses} relative overflow-hidden`}>
       {/* Background Effects */}
@@ -278,7 +252,6 @@ const Portfolio = () => {
     </div>
   );
 
-  // About Page
   const AboutPage = () => (
     <div className={`min-h-screen ${themeClasses} px-6 py-20`}>
       <div className="container mx-auto max-w-6xl">
@@ -343,7 +316,6 @@ const Portfolio = () => {
         <Experience isDark={isDark} />
 
       </div>
-              {/* Tech Stack Icons */}
           <div className={`mt-20 transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <div className="text-center mb-8">
             <h3 className={`text-lg font-semibold mb-2 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
@@ -363,7 +335,6 @@ const Portfolio = () => {
     </div>
   );
 
-  // Projects Page
   const ProjectsPage = () => (
     <div className={`min-h-screen ${themeClasses} px-6 py-20`}>
       <div className="container mx-auto max-w-6xl">
@@ -450,7 +421,6 @@ const Portfolio = () => {
     </div>
   );
 
-  // Contact Page
   const ContactPage = () => (
     <div className={`min-h-screen ${themeClasses} px-6 py-20`}>
       <div className="container mx-auto max-w-6xl">
@@ -575,7 +545,6 @@ const Portfolio = () => {
     <div className="relative">
       <ThemeToggle />
       
-      {/* Book-style Page Container */}
       <div className="relative perspective-1000">
         <div 
           className={`transform-style-preserve-3d transition-all duration-700 ${
@@ -586,7 +555,6 @@ const Portfolio = () => {
             perspective: '1000px'
           }}
         >
-          {/* Current Page */}
           <div 
             className={`${isTransitioning ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
             style={{
@@ -601,7 +569,6 @@ const Portfolio = () => {
         </div>
       </div>
 
-      {/* Page Navigation */}
       <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
         <div className={`flex items-center space-x-2 px-4 py-2 rounded-full ${
           isDark ? 'bg-gray-800/90 border border-gray-700' : 'bg-white/90 border border-gray-200'

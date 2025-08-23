@@ -4,6 +4,7 @@ import { Download, Eye, Sun, Moon,  User, FolderOpen, Mail, Home } from 'lucide-
 import Skills from './Skills';
 import Experience from './Experience';
 import { projects } from '@/constants/pagesConstants';
+import Link from 'next/link';
 
 const Portfolio = () => {
   const [isDark, setIsDark] = useState(true);
@@ -50,12 +51,9 @@ const Portfolio = () => {
 
   const HomePage = () => (
     <div className={`min-h-screen ${themeClasses} relative overflow-hidden`}>
-      {/* Background Effects */}
         <div className="absolute inset-0 overflow-hidden">
           <div className={`absolute -top-40 -right-40 w-80 h-80 rounded-full opacity-20 animate-pulse ${isDark ? 'bg-gradient-to-br from-purple-500 to-pink-500' : 'bg-gradient-to-br from-blue-400 to-purple-400'}`}></div>
-          {/* <div className={`absolute -bottom-40 -left-40 w-80 h-80 rounded-full opacity-20 animate-pulse ${isDark ? 'bg-gradient-to-br from-blue-500 to-cyan-500' : 'bg-gradient-to-br from-pink-400 to-red-400'}`}></div> */}
           
-          {/* Floating particles */}
           <div className="absolute inset-0">
             {[...Array(10)].map((_, i) => (
               <div
@@ -75,22 +73,19 @@ const Portfolio = () => {
         <div className="relative z-10 container mx-auto px-6 py-20">
           <div className="flex flex-col lg:flex-row items-center justify-between min-h-[80vh]">
             
-            {/* Text Side - Left */}
             <div className="flex-1 lg:pr-12 mb-12 lg:mb-0">
               <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                 
-                {/* Greeting */}
                 <div className="mb-4">
                   <span className={`inline-block px-4 py-2 rounded-full text-sm font-medium ${
                     isDark 
-                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white' 
+                      ? 'bg-gradient-to-r from-purple-600 to-gray-900 text-white' 
                       : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white'
                   } animate-pulse`}>
                     Available for work
                   </span>
                 </div>
 
-                {/* Main Headline */}
                 <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
                   <span className="block">Hey, I&apos;m</span>
                   <span className={`block bg-gradient-to-r ${
@@ -101,7 +96,7 @@ const Portfolio = () => {
                     Ruth 👋
                   </span>
                   <span className="block text-3xl lg:text-4xl mt-2 font-medium opacity-80">
-                    Senior Software Developer
+                    Full Stack Software Developer
                   </span>
                 </h1>
 
@@ -130,7 +125,7 @@ const Portfolio = () => {
                       }`}>
                         
                         {/* Profile Image */}
-                        <div className="w-full h-full relative overflow-hidden">
+                        <div className="w-full h-full relative overflow-hidden py-10">
                           <img 
                             src="/images/my-image.jpeg" 
                             alt="Ruth - Senior Software Developer" 
@@ -152,7 +147,7 @@ const Portfolio = () => {
                             ? 'bg-gray-600 text-white' 
                             : 'bg-gray-500 text-white'
                         } shadow-lg`}>
-                          5+ Years
+                          3+ Years
                         </div>
                       </div>
                     </div>
@@ -188,7 +183,9 @@ const Portfolio = () => {
                       : 'border-gray-300 hover:border-blue-500 text-gray-700 hover:text-blue-600 hover:bg-blue-50'
                   }`}>
                     <Download className="mr-2 group-hover:translate-y-1 transition-transform" size={20} />
-                    Download Resume
+                    <Link href="/files/Ruth-UWAMAHORO_RESUME.pdf" target="_blank" className="flex items-center">
+                      View Resume
+                    </Link>
                   </button>
                 </div>
               </div>
@@ -241,7 +238,7 @@ const Portfolio = () => {
                         ? 'bg-gray-600 text-white' 
                         : 'bg-gray-500 text-white'
                     } shadow-lg`}>
-                      5+ Years
+                      3+ Years
                     </div>
                   </div>
                 </div>
@@ -261,7 +258,7 @@ const Portfolio = () => {
           } bg-clip-text text-transparent`}>
             About Me
           </h1>
-          <div className='w-44 h-2 bg-gradient-to-r from-purple-500 to-pink-500'></div>
+          <div className='w-44 h-1 bg-gradient-to-r from-purple-500 to-pink-500'></div>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -278,9 +275,9 @@ const Portfolio = () => {
             
             <div className="space-y-6">
               <p className={`text-lg leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                Hi! I&apos;m Ruth, a passionate Senior Software Developer with over 5 years of experience 
+                Hi! I&apos;m Ruth UWAMAHORO, a passionate  Software Developer with over 3 years of experience 
                 creating innovative digital solutions. I specialize in full-stack development using 
-                modern technologies like React, Next.js, TypeScript, and Python.
+                modern technologies like React, Next.js, TypeScript, Python, and database.
               </p>
               
               <p className={`text-lg leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
@@ -291,9 +288,9 @@ const Portfolio = () => {
               
               <div className="grid grid-cols-2 gap-4 mt-8">
                 {[
-                  { label: 'Experience', value: '5+ Years' },
-                  { label: 'Projects', value: '50+' },
-                  { label: 'Technologies', value: '15+' },
+                  { label: 'Experience', value: '3+ Years' },
+                  { label: 'Projects', value: '10+' },
+                  { label: 'Technologies', value: '10+' },
                   { label: 'Satisfaction', value: '99%' }
                 ].map((stat) => (
                   <div key={stat.label} className={`p-4 rounded-lg ${
@@ -315,20 +312,7 @@ const Portfolio = () => {
         </div>
         <Experience isDark={isDark} />
 
-      </div>
-          <div className={`mt-20 transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          <div className="text-center mb-8">
-            <h3 className={`text-lg font-semibold mb-2 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-              Technologies I work with
-            </h3>
-            <div 
-            className={`w-24 h-1 mx-auto mt-6 bg-gradient-to-r ${
-              isDark ? 'from-cyan-400 via-purple-500 to-pink-500' : 'from-blue-500 via-purple-500 to-pink-500'
-            }`}
-            style={{ clipPath: "polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%)" }} 
-          />
 
-          </div>
 
           <Skills />
         </div>
@@ -410,7 +394,7 @@ const Portfolio = () => {
                       ? 'text-purple-400 hover:text-purple-300' 
                       : 'text-blue-600 hover:text-blue-700'
                   } transition-colors`}>
-                    View Details →
+                    <Link href={project.link ?? '#'}>visit link →</Link>
                   </button>
                 </div>
               </div>
@@ -446,9 +430,9 @@ const Portfolio = () => {
               
               <div className="space-y-4">
                 {[
-                  { label: 'Email', value: 'ruth@example.com', icon: '📧' },
+                  { label: 'Email', value: 'ruthuwamahoro250@gmail.com', icon: '📧' },
                   { label: 'Location', value: 'Kigali, Rwanda', icon: '📍' },
-                  { label: 'Phone', value: '+250 123 456 789', icon: '📱' }
+                  { label: 'Phone', value: '+250 785557397', icon: '📱' }
                 ].map((contact) => (
                   <div key={contact.label} className="flex items-center space-x-4">
                     <span className="text-2xl">{contact.icon}</span>
@@ -527,7 +511,7 @@ const Portfolio = () => {
                   type="submit"
                   className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
                     isDark 
-                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white' 
+                      ? 'bg-gradient-to-r from-purple-600 to-gray-600 hover:from-purple-700 hover:to-gray-700 text-white' 
                       : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white'
                   } shadow-lg hover:shadow-xl`}
                 >

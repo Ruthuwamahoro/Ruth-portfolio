@@ -18,26 +18,27 @@ const Experience = ({ isDark = true }: ExperienceProps) => {
     setExpandedItem(expandedItem === id ? null : id);
   };
 
+
+  
   return (
-    <div className={`w-full max-w-6xl mx-auto px-4 py-8 my-24 transition-all duration-500 ${
+    <div className={`w-full max-w-6xl mx-auto px-16 py-24 my-24 transition-all duration-500${
       isDark 
-        ? 'bg-gradient-to-br from-gray-900/95 via-purple-800/90 to-purple-900/95 border border-gray-700/50' 
+        ? 'bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-purple-900/95 border border-green-700/50' 
         : 'bg-gradient-to-br from-white/95 via-gray-50/90 to-white/95 border border-gray-200/50 shadow-2xl shadow-blue-500/10'
     } backdrop-blur-sm rounded-3xl`}>
 
-      {/* Header */}
-      <div className={`text-center mb-12 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-        <h2 className={`text-4xl font-bold mb-4 bg-gradient-to-r ${
+      <div className={`text-left mb-24 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <h2 className={`text-5xl font-bold mb-4 bg-gradient-to-r ${
           isDark ? 'from-purple-400 via-pink-400 to-cyan-400' : 'from-blue-600 via-purple-600 to-pink-600'
         } bg-clip-text text-transparent`}>
           Professional Journey
         </h2>
-        <div className={`w-24 h-1 mx-auto bg-gradient-to-r ${
+        <div className={`w-24 h-1  bg-gradient-to-r text-left ${
           isDark ? 'from-purple-500 to-pink-500' : 'from-blue-500 to-purple-500'
         }`} />
-        <p className={`mt-4 text-lg ${
+        <p className={`mt-4 text-lg text-left ${
           isDark ? 'text-gray-300' : 'text-gray-600'
-        } max-w-2xl mx-auto leading-relaxed`}>
+        } max-w-2xl  leading-relaxed`}>
           A timeline of my growth and achievements in the world of software development
         </p>
       </div>
@@ -97,7 +98,6 @@ const Experience = ({ isDark = true }: ExperienceProps) => {
                       </div>
                     </div>
                     
-                    {/* Meta Info */}
                     <div className={`flex flex-wrap gap-3 text-sm ${
                       isDark ? 'text-gray-400' : 'text-gray-600'
                     } mb-4`}>

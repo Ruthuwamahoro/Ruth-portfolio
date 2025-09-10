@@ -24,7 +24,7 @@ export const projects = [
       id: 3,
       title: "Camp FeedBack App",
       description: "This project is designed to allow campers provide feedback on the camp, comment, suggestions and interact with organizers",
-      image: "./images/image2.jpeg",
+      image: "./images/image2.png",
       tech: ["Typescript", "Express", "NextJs", "Shadcn Component"],
       link: "https://github.com/Ruthuwamahoro/Camp-Feedback-App",
       status: "Development"

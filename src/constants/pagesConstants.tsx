@@ -22,11 +22,12 @@ export const projects = [
     },
     {
       id: 3,
-      title: "AI Chat Bot",
-      description: "Intelligent chatbot using OpenAI API with context awareness",
+      title: "Camp FeedBack App",
+      description: "This project is designed to allow campers provide feedback on the camp, comment, suggestions and interact with organizers",
       image: "./images/image2.jpeg",
-      tech: ["Python", "FastAPI", "OpenAI", "Redis"],
-      status: "Live"
+      tech: ["Typescript", "Express", "NextJs", "Shadcn Component"],
+      link: "https://github.com/Ruthuwamahoro/Camp-Feedback-App",
+      status: "Development"
     }
   ];
 

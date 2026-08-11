@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Navbar } from "./Navbar";
+import Link from "next/link";
 
 export function Hero() {
   return (
@@ -87,7 +88,7 @@ export function Hero() {
             and code beautifully simple things, and I love what I do.
           </p>
 
-          <a
+          <Link
             href="#contacts"
             data-fade-up
             style={{ opacity: 0, animation: "hero-fade-up 0.6s ease-out 360ms forwards" }}
@@ -98,7 +99,7 @@ export function Hero() {
               <span className="absolute -bottom-1 left-0 h-[2px] w-full origin-left scale-x-100 bg-[#9EF2C6] transition-transform duration-300 ease-out group-hover:scale-x-0" />
               <span className="absolute -bottom-1 right-0 h-[2px] w-full origin-right scale-x-0 bg-[#9EF2C6] transition-transform duration-300 ease-out group-hover:scale-x-100" />
             </span>
-          </a>
+          </Link>
 
           <div data-fade-up
             style={{ opacity: 0, animation: "hero-fade-up 0.6s ease-out 480ms forwards" }}

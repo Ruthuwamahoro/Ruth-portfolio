@@ -1,199 +1,148 @@
-import React, { useState, useEffect } from 'react';
-import { skillsData } from '@/constants/pagesConstants';
+"use client";
 
+import { useEffect, useRef, useState } from "react";
+import { Terminal } from "lucide-react";
 
+type SkillGroup = {
+  key: string;
+  label: string;
+  skills: string[];
+};
 
-const categories = ["All", "Frontend", "Backend", "Mobile", "Database", "Language", "Styling", "API"];
+const skillGroups: SkillGroup[] = [
+  {
+    key: "frontend",
+    label: "frontend",
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux"],
+  },
+  {
+    key: "backend",
+    label: "backend",
+    skills: ["Node.js", "Express", "REST APIs", "GraphQL", "Python"],
+  },
+  {
+    key: "database",
+    label: "database",
+    skills: ["PostgreSQL", "MongoDB", "Redis", "Prisma"],
+  },
+  {
+    key: "devops",
+    label: "devops",
+    skills: ["Docker", "AWS", "CI/CD", "Vercel", "Git"],
+  },
+];
 
-interface SkillsProps {
-  isDark?: boolean;
-}
-
-const Skills: React.FC<SkillsProps> = ({ isDark = true }) => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [animatedSkills, setAnimatedSkills] = useState<Set<number>>(new Set());
-
-  const filteredSkills = selectedCategory === "All" 
-    ? skillsData 
-    : skillsData.filter(skill => skill.category === selectedCategory);
+export default function Skills() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Reset animations when category changes
-    setAnimatedSkills(new Set());
-    
-    // Trigger animations with staggered delays
-    const timeouts = filteredSkills.map((skill, index) => 
-      setTimeout(() => {
-        setAnimatedSkills(prev => new Set(prev).add(skill.id));
-      }, index * 150 + 300)
+    const node = sectionRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
     );
 
-    return () => timeouts.forEach(clearTimeout);
-  }, [selectedCategory]);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
-  const SkillCard: React.FC<{ skill: typeof skillsData[0]; index: number }> = ({ skill, index }) => {
-    const isAnimated = animatedSkills.has(skill.id);
-    
-    return (
-      <div 
-        className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${
-          isDark 
-            ? 'from-gray-800/80 to-gray-900/80 border-gray-600/30' 
-            : 'from-white to-gray-50/80 border-gray-200/50'
-        } border backdrop-blur-sm transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl ${
-          isAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}
-        style={{ transitionDelay: `${index * 50}ms` }}
-      >
-        {/* Gradient overlay on hover */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
-        
-        {/* Animated border */}
-        <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
-          <div className={`absolute inset-[1px] rounded-2xl ${
-            isDark ? 'bg-gray-800/95' : 'bg-white/95'
-          }`} />
+  const fadeUp = (delayMs: number): React.CSSProperties => ({
+    opacity: isVisible ? 1 : 0,
+    transform: isVisible ? "translateY(0)" : "translateY(16px)",
+    transition: `opacity 0.6s ease-out ${delayMs}ms, transform 0.6s ease-out ${delayMs}ms`,
+  });
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-[#2D2F33] px-6 py-20 sm:px-10 sm:py-28 lg:px-16"
+    >
+      <style>{`
+        @media (prefers-reduced-motion: reduce) {
+          [data-fade-up] { transition: none !important; }
+        }
+      `}</style>
+
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "linear-gradient(#F8F8F8 1px, transparent 1px), linear-gradient(90deg, #F8F8F8 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-[8%] bottom-0 -z-0 h-[380px] w-[380px] rounded-full bg-[#9EF2C6]/10 blur-[120px]"
+      />
+
+      <div className="relative mx-auto w-full max-w-[1450px]">
+        <div data-fade-up style={fadeUp(0)} className="max-w-[560px]">
+          <span className="font-mono text-[13px] font-bold uppercase tracking-[0.2em] text-[#9EF2C6]">
+            Toolbox
+          </span>
+          <h2 className="mt-4 font-mono text-[34px] font-bold leading-[1.15] tracking-tight text-[#F8F8F8] sm:text-[40px]">
+            Skills &amp; stack
+          </h2>
+          <p className="mt-6 font-mono text-[14px] leading-[1.75] text-[#A4A5A9]">
+            The tools I reach for most, grouped the way I&apos;d organize a
+            real config file &mdash; not a wall of logos. Each of these has
+            shipped in production, not just in a tutorial.
+          </p>
         </div>
-        
-        <div className="relative p-6">
-          {/* Icon and Category */}
-          <div className="flex items-center justify-between mb-4">
-            <div className={`p-3 rounded-xl bg-gradient-to-br ${skill.color} text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-              {skill.icon}
-            </div>
-            <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-              isDark 
-                ? 'bg-gray-700/80 text-gray-200 border border-gray-600/30' 
-                : 'bg-gray-100/80 text-gray-700 border border-gray-200/50'
-            }`}>
-              {skill.category}
+
+        <div
+          data-fade-up
+          style={fadeUp(150)}
+          className="mt-12 overflow-hidden rounded-2xl bg-[#26282B] ring-1 ring-white/5"
+        >
+          <div className="flex items-center gap-2 border-b border-white/5 bg-[#2D2F33] px-5 py-3.5">
+            <span className="h-3 w-3 rounded-full bg-[#FF5F56]" />
+            <span className="h-3 w-3 rounded-full bg-[#FFBD2E]" />
+            <span className="h-3 w-3 rounded-full bg-[#27C93F]" />
+            <span className="ml-3 flex items-center gap-1.5 font-mono text-[12px] text-[#A4A5A9]">
+              <Terminal className="h-3.5 w-3.5" strokeWidth={2} />
+              stack.config.ts
             </span>
           </div>
 
-          {/* Skill Name */}
-          <h3 className={`text-xl font-bold mb-6 ${
-            isDark ? 'text-white' : 'text-gray-900'
-          } group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:${skill.color} transition-all duration-300`}>
-            {skill.name}
-          </h3>
-
-
-
-          {/* Progress Bar */}
-          <div className="space-y-2">
-            <div className="flex justify-between items-center">
-              <span className={`text-sm font-medium ${
-                isDark ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-                Proficiency
-              </span>
-              <span className={`text-sm font-bold ${
-                isDark ? 'text-white' : 'text-gray-900'
-              }`}>
-                {skill.level}%
-              </span>
-            </div>
-            
-            <div className={`w-full h-3 rounded-full ${
-              isDark ? 'bg-gray-700/60' : 'bg-gray-200/60'
-            } overflow-hidden shadow-inner`}>
-              <div 
-                className={`h-full bg-gradient-to-r ${skill.color} transition-all duration-1000 ease-out`}
-                style={{ 
-                  width: isAnimated ? `${skill.level}%` : '0%',
-                  transitionDelay: `${index * 100 + 400}ms`
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Floating particles effect */}
-          <div className="absolute -top-2 -right-2 w-20 h-20 bg-gradient-to-br opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-full blur-xl"
-               style={{ background: `linear-gradient(135deg, ${skill.color.split(' ')[1]}, ${skill.color.split(' ')[3]})` }} />
-        </div>
-
-        {/* Ripple effect on hover */}
-        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className={`absolute top-1/2 left-1/2 w-0 h-0 bg-gradient-to-r ${skill.color} opacity-20 rounded-full group-hover:w-96 group-hover:h-96 group-hover:-translate-x-1/2 group-hover:-translate-y-1/2 transition-all duration-700 ease-out`} />
-        </div>
-      </div>
-    );
-  };
-
-  return (
-    <div className="w-full max-w-6xl mx-auto p-6">
-      {/* Header */}
-      <div className=" mb-12">
-        <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${
-          isDark ? 'text-white' : 'text-gray-900'
-        }`}>
-          <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Skills & Expertise
-          </span>
-          <div className={`w-24 h-1  bg-gradient-to-r text-left mt-7 ${
-          isDark ? 'from-purple-500 to-pink-500' : 'from-blue-500 to-purple-500'
-        }`} />
-        </h2>
-        <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'} max-w-2xl `}>
-          A comprehensive overview of my technical skills and proficiency levels across various technologies
-        </p>
-      </div>
-
-      {/* Category Filters */}
-      <div className="flex flex-wrap justify-left gap-3 mb-12">
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => setSelectedCategory(category)}
-            className={`relative px-6 py-3 font-semibold text-sm transition-all duration-300 rounded-full overflow-hidden group ${
-              selectedCategory === category
-                ? 'text-white shadow-lg scale-105'
-                : isDark 
-                  ? 'text-gray-400 hover:text-white hover:scale-102 bg-gray-800/50 hover:bg-gray-700/50'
-                  : 'text-gray-600 hover:text-gray-900 hover:scale-102 bg-gray-100 hover:bg-gray-200'
-            }`}
-          >
-            {selectedCategory === category && (
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
-            )}
-            <span className="relative z-10">{category}</span>
-            
-            {/* Hover effect for non-selected buttons */}
-            {selectedCategory !== category && (
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            )}
-          </button>
-        ))}
-      </div>
-
-      {/* Skills Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[400px]">
-        {filteredSkills.length > 0 ? (
-          filteredSkills.map((skill, index) => (
-            <SkillCard 
-              key={`${skill.id}-${selectedCategory}`} 
-              skill={skill} 
-              index={index}
-            />
-          ))
-        ) : (
-          <div className="col-span-full flex items-center justify-center py-20">
-            <div className="text-center">
-              <div className={`text-6xl mb-4 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
-                🔍
+          <div className="grid grid-cols-1 gap-x-10 gap-y-8 p-6 sm:p-10 md:grid-cols-2">
+            {skillGroups.map(({ key, label, skills }, i) => (
+              <div
+                key={key}
+                data-fade-up
+                style={fadeUp(220 + i * 100)}
+                className="font-mono text-[13.5px] leading-relaxed"
+              >
+                <div className="text-[#F8F8F8]">
+                  <span className="text-[#9EF2C6]">{label}</span>
+                  <span className="text-[#A4A5A9]">: [</span>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2 pl-4">
+                  {skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="rounded-md bg-[#333438] px-3 py-1.5 text-[12.5px] text-[#F8F8F8] ring-1 ring-white/5 transition-all duration-200 hover:-translate-y-0.5 hover:text-[#9EF2C6] hover:ring-[#9EF2C6]/40"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-3 text-[#A4A5A9]">],</div>
               </div>
-              <h3 className={`text-xl font-semibold mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                No skills found
-              </h3>
-              <p className={`${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                No skills available in the &quot;{selectedCategory}&quot; category yet.
-              </p>
-            </div>
+            ))}
           </div>
-        )}
+        </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default Skills;
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { Mail, Github, Twitter, ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 const navLinks = [
   { label: "Works", href: "#works" },
@@ -13,35 +14,35 @@ export function Navbar() {
     <header className="w-full">
       <div className="flex items-center justify-between py-6 px-26 mx-auto max-w-[1450px]">
         {/* Logo */}
-        <a href="/" className="font-mono text-lg tracking-tight">
+        <Link href="/" className="font-mono text-lg tracking-tight">
           <span className="font-bold text-foreground">Ruth</span>{" "}
           <span className="font-normal text-muted-foreground">UWAMAHORO</span>
-        </a>
+        </Link>
 
         {/* Center nav */}
         <nav className="hidden md:flex items-center gap-8 font-mono text-sm">
-          <a
+          <Link
             href="#services"
             className="flex items-center gap-1.5 transition-opacity hover:opacity-80 text-[#9EF2C6]"
           >
             <ChevronLeft className="h-3.5 w-3.5" />
             Services
             <ChevronRight className="h-3.5 w-3.5" />
-          </a>
+          </Link>
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               className="text-foreground/90 transition-colors hover:text-primary"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* Right side */}
         <div className="hidden md:flex items-center gap-6 font-mono text-sm">
-          <a
+          <Link
             href="https://twitter.com"
             target="_blank"
             rel="noreferrer"
@@ -49,8 +50,8 @@ export function Navbar() {
           >
             <Twitter className="h-4 w-4" />
             LinkedIn
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://github.com/Ruthuwamahoro"
             target="_blank"
             rel="noreferrer"
@@ -58,14 +59,14 @@ export function Navbar() {
           >
             <Github className="h-4 w-4" />
             Github
-          </a>
-          <a
+          </Link>
+          <Link
             href="mailto:ruthuwamahoro250@gmail.com"
             aria-label="Email"
             className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 text-primary transition-colors hover:bg-primary/10"
           >
             <Mail className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </header>

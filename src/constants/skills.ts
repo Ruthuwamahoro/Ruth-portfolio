@@ -6,23 +6,33 @@ export type SkillGroup = {
   
 export const skillGroups: SkillGroup[] = [
     {
+      key: "Languages",
+      label: "Languages",
+      skills: ["JavaScript", "TypeScript", "Python", "Java", "SQL"],
+    },
+    {
       key: "frontend",
       label: "frontend",
-      skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux", "Tanstack Query"]
+      skills: ["React", "Next.js","BootStrap", "Tailwind CSS", "Redux", "Tanstack Query"]
     },
     {
       key: "backend",
       label: "backend",
-      skills: ["Node.js", "Express", "REST APIs", "GraphQL", "Python", "Django", "Java", "Spring Boot"],
+      skills: ["Node.js", "Express", "REST APIs","Django","Spring Boot"],
     },
     {
       key: "database",
       label: "database",
-      skills: ["PostgreSQL", "MongoDB", "Redis", "Prisma","MySQL"],
+      skills: ["PostgreSQL", "MongoDB","MySQL"],
     },
     {
-      key: "devops",
+      key: "DevOps",
       label: "devops",
-      skills: ["Docker", "AWS", "CI/CD", "Vercel", "Git", "Github"],
+      skills: ["Docker", "AWS", "CI/CD", "Linux", "GitHub Actions"],
     },
+    {
+      key: "Tools",
+      label: "Tools",
+      skills: ["Git", "GitHub", "Jira", "Figma", "Postman","Trello"],
+    }
   ];

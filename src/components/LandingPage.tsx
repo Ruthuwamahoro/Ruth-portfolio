@@ -82,10 +82,7 @@ export function Hero() {
           <p data-fade-up
             style={{ opacity: 0, animation: "hero-fade-up 0.6s ease-out 240ms forwards" }}
             className="mt-10 max-w-[320px] font-mono text-[13.5px] leading-[1.5] text-[#A4A5A9]">
-            Passionate full-stack developer with expertise in modern web
-            technologies. I craft scalable, user-centric applications that
-            solve real-world problems with clean, efficient code. I design
-            and code beautifully simple things, and I love what I do.
+            Full-stack developer focused on clean code, great experiences, and real-world solutions.
           </p>
 
           <Link
@@ -133,7 +130,7 @@ export function Hero() {
 
           <div className="relative mx-auto aspect-square w-full overflow-hidden rounded-full bg-[#26282B]/60 ring-1 ring-white/5">
             <Image
-              src="/images/main1.png"
+              src="/images/main.png"
               alt="Graduation portrait"
               fill
               priority

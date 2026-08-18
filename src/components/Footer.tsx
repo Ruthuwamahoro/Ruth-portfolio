@@ -34,9 +34,6 @@ export function Footer() {
 
       <div className="relative mx-auto flex w-full max-w-[1450px] flex-col gap-8">
         <div className="flex flex-col items-start justify-between gap-8 border-b border-white/5 pb-10 sm:flex-row sm:items-center">
-          <Link href="#" className="font-mono text-[18px] font-bold text-[#F8F8F8]">
-            yourname<span className="text-[#9EF2C6]">.dev</span>
-          </Link>
 
           <nav className="flex flex-wrap gap-x-7 gap-y-3">
             {navLinks.map((link) => (
@@ -66,7 +63,7 @@ export function Footer() {
 
         <div className="flex flex-col-reverse items-center justify-between gap-4 sm:flex-row">
           <p className="font-mono text-[12px] text-[#6C6E72]">
-            &copy; {year} Your Name. All rights reserved.
+            &copy; {year} Ruth UWAMAHORO. All rights reserved.
           </p>
 
           <button

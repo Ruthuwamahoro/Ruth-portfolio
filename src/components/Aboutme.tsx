@@ -228,7 +228,7 @@ export default function About() {
           </div>
 
           <p className="mt-5 max-w-[480px] font-mono text-[13px] leading-[1.65] text-[#A4A5A9]">
-          Hi! I&apos;m Ruth UWAMAHORO, a passionate Software Developer with over 3 years of experience creating innovative digital solutions. I specialize in full-stack development using modern technologies like React, Next.js, TypeScript, Python, and database.
+          Hi! I&apos;m Ruth UWAMAHORO, a passionate Software Developer with over 4 years of experience creating innovative digital solutions. I specialize in full-stack development using modern technologies.
 
 My journey in tech started with a curiosity about how things work behind the scenes. Today, I&apos;m driven by the challenge of solving complex problems and creating user-friendly applications that make a real impact.
           </p>

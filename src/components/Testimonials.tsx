@@ -18,7 +18,7 @@ type Testimonial = {
 const testimonials: Testimonial[] = [
   {
     quote:
-      "Daniel was a real pleasure to work with and we look forward to working with him again. Definitely someone you can trust with a project start to finish.",
+      "Ruth was a real pleasure to work with and we look forward to working with him again. Definitely someone you can trust with a project start to finish.",
     rating: 5,
     name: "Benjamin Bryant",
     role: "VP & Co-Founder",
@@ -26,7 +26,7 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "He didn't just build what we asked for, he asked the right questions first. The handoff docs alone saved our team weeks.",
+      "She didn't just build what we asked for, she asked the right questions first. The handoff docs alone saved our team weeks.",
     rating: 5,
     name: "Raaid Hossain",
     role: "Project Management",

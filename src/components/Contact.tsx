@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Mail, MapPin, Github, Linkedin, Twitter,Send } from "lucide-react";
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: "hello@yourname.dev", href: "mailto:hello@yourname.dev" },
+  { icon: Mail, label: "Email", value: "ruthuwamahoro250@gmail.com", href: "ruthuwamahoro250@gmail.com" },
   { icon: MapPin, label: "Based in", value: "Kigali, Rwanda", href: undefined },
 ];
 
@@ -151,7 +151,7 @@ export function Contact() {
                 id="name"
                 type="text"
                 required
-                placeholder="Jane Doe"
+                placeholder="e.g: Jane Doe"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className={inputClasses}
@@ -166,7 +166,7 @@ export function Contact() {
                 id="email"
                 type="email"
                 required
-                placeholder="jane@company.com"
+                placeholder="e.g: email@gmail.com"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className={inputClasses}

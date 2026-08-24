@@ -4,9 +4,11 @@ import { Mail, Github, Twitter, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "Works", href: "#works" },
-  { label: "Notes", href: "#notes" },
-  { label: "Contacts", href: "#contacts" },
+  { label: "Experience", href: "#experience" },
+  { label: "Skills", href: "#skills" },
+  { label: "Projects", href: "#projects" },
+  { label: "Testimonials", href: "#testimonials" },
+  { label: "Contact", href: "#contacts" },
 ];
 
 export function Navbar() {
@@ -21,14 +23,6 @@ export function Navbar() {
 
         {/* Center nav */}
         <nav className="hidden md:flex items-center gap-8 font-mono text-sm">
-          <Link
-            href="#services"
-            className="flex items-center gap-1.5 transition-opacity hover:opacity-80 text-[#9EF2C6]"
-          >
-            <ChevronLeft className="h-3.5 w-3.5" />
-            Services
-            <ChevronRight className="h-3.5 w-3.5" />
-          </Link>
           {navLinks.map((link) => (
             <Link
               key={link.label}

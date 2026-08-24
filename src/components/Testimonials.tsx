@@ -86,6 +86,7 @@ export default function Testimonials() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden bg-[#2D2F33] px-6 py-16 sm:px-10 sm:py-20 lg:px-16"
+      id="testimonials"
     >
       <style>{`
         @keyframes testi-in {

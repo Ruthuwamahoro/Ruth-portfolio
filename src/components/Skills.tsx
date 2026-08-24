@@ -38,6 +38,7 @@ export default function Skills() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden bg-[#2D2F33] px-6 py-20 sm:px-10 sm:py-28 lg:px-16"
+      id="skills"
     >
       <style>{`
         @media (prefers-reduced-motion: reduce) {

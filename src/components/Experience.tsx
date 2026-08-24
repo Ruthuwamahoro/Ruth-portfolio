@@ -83,6 +83,7 @@ export default function Experience() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden bg-[#1F2124]  px-6 py-20 sm:px-10 sm:py-24 lg:px-16"
+      id="experience"
     >
       <style>{`
         @keyframes exp-panel-in {

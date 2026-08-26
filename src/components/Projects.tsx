@@ -4,102 +4,29 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Github, ChevronLeft, ChevronRight } from "lucide-react";
+import { useGetProjects } from "@/hooks/useGetProjects";
 
 type Project = {
+  id: string;
   title: string;
   description: string;
-  tags: string[];
-  year: string;
-  image: string;
-  liveUrl?: string;
-  repoUrl?: string;
+  techStack: string; // comma-separated string from DB
+  releaseTime: string;
+  cover: string;
+  livelink?: string;
+  githubLink?: string;
 };
 
-
-const projects: Project[] = [
-  {
-    title: "Ledgerly",
-    description:
-      "A multi-currency invoicing platform for freelance teams, with automated reminders and Stripe-backed payouts.",
-    tags: ["Next.js", "PostgreSQL", "Stripe", "tRPC"],
-    year: "2026",
-    image: "/images/image4.png",
-    liveUrl: "#",
-    repoUrl: "#",
-  },
-  {
-    title: "Fieldnote",
-    description:
-      "Offline-first inspection app for field engineers, syncing photos and reports the moment signal returns.",
-    tags: ["React Native", "Node.js", "Redis"],
-    year: "2025",
-    image: "/images/image5.png",
-    liveUrl: "#",
-    repoUrl: "#",
-  },
-  {
-    title: "Signalboard",
-    description:
-      "Realtime analytics dashboard for support teams, built on websockets with sub-second refreshes.",
-    tags: ["React", "GraphQL", "Docker"],
-    year: "2025",
-    image: "/images/image4.png",
-    liveUrl: "#",
-    repoUrl: "#",
-  },
-  {
-    title: "Roomkey",
-    description:
-      "Booking and access-management system for co-working spaces, from calendar to smart-lock handoff.",
-    tags: ["Next.js", "MongoDB", "AWS"],
-    year: "2024",
-    image: "/images/image5.png",
-    liveUrl: "#",
-    repoUrl: "#",
-  },
-  {
-    title: "Pathwise",
-    description:
-      "Route-planning tool for delivery fleets that recalculates on the fly when traffic or drops change.",
-    tags: ["React", "Node.js", "PostGIS"],
-    year: "2024",
-    image: "/images/image4.png",
-    liveUrl: "#",
-    repoUrl: "#",
-  },
-  {
-    title: "Clearline",
-    description:
-      "Support-ticket triage tool that tags and routes incoming requests before a human ever sees them.",
-    tags: ["Next.js", "OpenAI API", "Redis"],
-    year: "2024",
-    image: "/images/image5.png",
-    liveUrl: "#",
-    repoUrl: "#",
-  },
-  {
-    title: "Harborlist",
-    description:
-      "Marketplace for short-term equipment rentals between small construction firms, with escrowed payments.",
-    tags: ["React", "Express", "Stripe"],
-    year: "2023",
-    image: "/images/image4.png",
-    liveUrl: "#",
-    repoUrl: "#",
-  },
-  {
-    title: "Nightshift",
-    description:
-      "Scheduling app for hospital staff that balances fairness and coverage across rotating shifts.",
-    tags: ["Vue", "Node.js", "PostgreSQL"],
-    year: "2023",
-    image: "/images/image5.png",
-    liveUrl: "#",
-    repoUrl: "#",
-  },
-];
-
 const ITEMS_PER_PAGE = 3;
+
+// helper: "next.js, tailwind, drizzle" -> ["next.js", "tailwind", "drizzle"]
+function parseTechStack(techStack?: string): string[] {
+  if (!techStack) return [];
+  return techStack
+    .split(",")
+    .map((t) => t.trim())
+    .filter(Boolean);
+}
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -125,6 +52,10 @@ export default function Projects() {
     return () => observer.disconnect();
   }, []);
 
+  const { data, isPending, error } = useGetProjects();
+
+  const projects: Project[] = data?.data ?? [];
+
   const fadeUp = (delayMs: number): React.CSSProperties => ({
     opacity: isVisible ? 1 : 0,
     transform: isVisible ? "translateY(0)" : "translateY(16px)",
@@ -135,16 +66,86 @@ export default function Projects() {
   const start = page * ITEMS_PER_PAGE;
   const currentItems = useMemo(
     () => projects.slice(start, start + ITEMS_PER_PAGE),
-    [start]
+    [projects, start]
   );
+
   const showFeatured = page === 0;
-  const featured = showFeatured ? currentItems[0] : null;
+  // BUG FIX: this was `projects` (the whole array). It should be a single project.
+  const featured = showFeatured ? projects[0] : undefined;
+
   const gridItems = showFeatured ? currentItems.slice(1) : currentItems;
 
   function goTo(next: number) {
     if (next === page || next < 0 || next >= totalPages) return;
     setDirection(next > page ? "next" : "prev");
     setPage(next);
+  }
+
+  if (isPending) {
+    return (
+      <section className="relative overflow-hidden bg-[#1F2124] px-6 py-20 sm:px-10 sm:py-28 lg:px-16">
+        <div className="relative mx-auto w-full max-w-[1450px] animate-pulse">
+          {/* header skeleton */}
+          <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+            <div className="max-w-[560px] space-y-3">
+              <div className="h-3 w-32 rounded bg-[#2D2F33]" />
+              <div className="h-8 w-48 rounded bg-[#2D2F33]" />
+            </div>
+            <div className="h-3 w-64 rounded bg-[#2D2F33]" />
+          </div>
+  
+          {/* featured skeleton */}
+          <div className="mt-12 grid grid-cols-1 overflow-hidden rounded-2xl bg-[#2D2F33] ring-1 ring-white/5 md:grid-cols-2">
+            <div className="aspect-video bg-[#333438] md:aspect-auto md:min-h-[320px]" />
+            <div className="flex flex-col justify-center gap-4 p-8 sm:p-10">
+              <div className="h-3 w-28 rounded bg-[#333438]" />
+              <div className="h-6 w-3/4 rounded bg-[#333438]" />
+              <div className="space-y-2">
+                <div className="h-3 w-full rounded bg-[#333438]" />
+                <div className="h-3 w-5/6 rounded bg-[#333438]" />
+              </div>
+              <div className="flex gap-2 pt-2">
+                <div className="h-6 w-16 rounded-md bg-[#333438]" />
+                <div className="h-6 w-16 rounded-md bg-[#333438]" />
+                <div className="h-6 w-16 rounded-md bg-[#333438]" />
+              </div>
+            </div>
+          </div>
+  
+          {/* grid skeleton */}
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 2 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex flex-col overflow-hidden rounded-2xl bg-[#2D2F33] ring-1 ring-white/5"
+              >
+                <div className="aspect-[16/10] bg-[#333438]" />
+                <div className="flex flex-1 flex-col gap-3 p-6">
+                  <div className="h-4 w-2/3 rounded bg-[#333438]" />
+                  <div className="space-y-2">
+                    <div className="h-3 w-full rounded bg-[#333438]" />
+                    <div className="h-3 w-4/5 rounded bg-[#333438]" />
+                  </div>
+                  <div className="flex gap-1.5">
+                    <div className="h-5 w-12 rounded-md bg-[#333438]" />
+                    <div className="h-5 w-12 rounded-md bg-[#333438]" />
+                  </div>
+                  <div className="mt-2 h-4 w-1/3 rounded bg-[#333438] border-t border-white/5 pt-4" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="bg-[#1F2124] px-6 py-20 text-center text-red-400">
+        Failed to load projects.
+      </section>
+    );
   }
 
   return (
@@ -209,7 +210,7 @@ export default function Projects() {
             <div className="grid grid-cols-1 overflow-hidden rounded-2xl bg-[#2D2F33] ring-1 ring-white/5 md:grid-cols-2">
               <div className="relative aspect-video md:aspect-auto">
                 <Image
-                  src={featured.image}
+                  src={featured.cover}
                   alt={featured.title}
                   fill
                   sizes="(min-width: 768px) 50vw, 100vw"
@@ -219,7 +220,7 @@ export default function Projects() {
               </div>
               <div className="flex flex-col justify-center p-8 sm:p-10">
                 <span className="font-mono text-[11.5px] font-bold uppercase tracking-widest text-[#9EF2C6]">
-                  Featured &middot; {featured.year}
+                  Featured &middot; {featured.releaseTime}
                 </span>
                 <h3 className="mt-3 font-mono text-[24px] font-bold text-[#F8F8F8]">
                   {featured.title}
@@ -228,7 +229,7 @@ export default function Projects() {
                   {featured.description}
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2">
-                  {featured.tags.map((tag) => (
+                  {parseTechStack(featured.techStack).map((tag) => (
                     <span
                       key={tag}
                       className="rounded-md bg-[#333438] px-3 py-1 text-[11.5px] text-[#F8F8F8] ring-1 ring-white/5"
@@ -238,18 +239,18 @@ export default function Projects() {
                   ))}
                 </div>
                 <div className="mt-7 flex items-center gap-6">
-                  {featured.liveUrl && (
+                  {featured.livelink && (
                     <Link
-                      href={featured.liveUrl}
+                      href={featured.livelink}
                       className="group inline-flex items-center gap-1 font-mono text-[12.5px] font-bold uppercase tracking-wide text-[#9EF2C6]"
                     >
                       View live
                       <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </Link>
                   )}
-                  {featured.repoUrl && (
+                  {featured.githubLink && (
                     <Link
-                      href={featured.repoUrl}
+                      href={featured.githubLink}
                       className="inline-flex items-center gap-1.5 font-mono text-[12.5px] text-[#A4A5A9] transition-colors duration-200 hover:text-[#F8F8F8]"
                     >
                       <Github className="h-3.5 w-3.5" />
@@ -264,12 +265,12 @@ export default function Projects() {
           <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {gridItems.map((project) => (
               <div
-                key={project.title}
+                key={project.id}
                 className="group flex flex-col overflow-hidden rounded-2xl bg-[#2D2F33] ring-1 ring-white/5 transition-all duration-300 hover:-translate-y-1 hover:ring-[#9EF2C6]/30"
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image
-                    src={project.image}
+                    src={project.cover}
                     alt={project.title}
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -277,7 +278,7 @@ export default function Projects() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#2D2F33] via-transparent to-transparent" />
                   <span className="absolute bottom-3 left-3 rounded-md bg-[#1F2124]/80 px-2.5 py-1 font-mono text-[11px] text-[#A4A5A9] backdrop-blur-sm">
-                    {project.year}
+                    {project.releaseTime}
                   </span>
                 </div>
 
@@ -289,7 +290,7 @@ export default function Projects() {
                     {project.description}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-1.5">
-                    {project.tags.map((tag) => (
+                    {parseTechStack(project.techStack).map((tag) => (
                       <span
                         key={tag}
                         className="rounded-md bg-[#333438] px-2.5 py-1 text-[11px] text-[#F8F8F8] ring-1 ring-white/5"
@@ -299,18 +300,18 @@ export default function Projects() {
                     ))}
                   </div>
                   <div className="mt-5 flex items-center gap-5 border-t border-white/5 pt-4">
-                    {project.liveUrl && (
+                    {project.livelink && (
                       <Link
-                        href={project.liveUrl}
+                        href={project.livelink}
                         className="group/link inline-flex items-center gap-1 font-mono text-[11.5px] font-bold uppercase tracking-wide text-[#9EF2C6]"
                       >
                         View live
                         <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
                       </Link>
                     )}
-                    {project.repoUrl && (
+                    {project.githubLink && (
                       <Link
-                        href={project.repoUrl}
+                        href={project.githubLink}
                         className="inline-flex items-center gap-1.5 font-mono text-[11.5px] text-[#A4A5A9] transition-colors duration-200 hover:text-[#F8F8F8]"
                       >
                         <Github className="h-3.5 w-3.5" />

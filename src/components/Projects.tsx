@@ -188,7 +188,6 @@ export default function Projects() {
       <div className="relative mx-auto w-full max-w-[1450px]">
         <div
           data-fade-up
-          style={fadeUp(0)}
           className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end"
         >
           <div className="max-w-[560px]">

@@ -2,7 +2,6 @@ import axios from "axios";
 
 
 export async function getProjects (){
-    console.log('++++++++++++++++++++++++++++++++++++++++++', process.env.NEXT_PUBLIC_API_URL)
 
     try{
 

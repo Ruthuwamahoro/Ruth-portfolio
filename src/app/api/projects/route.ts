@@ -6,9 +6,8 @@ import { projectsSchema } from "@/validations/projects";
 import { desc } from "drizzle-orm";
 import {NextRequest, NextResponse} from "next/server";
 
-export async function POST (req: NextRequest, res: NextResponse){
+export async function POST (req: NextRequest){
     try {
-        console.log("++++++++++++++++++++++++++++", req.headers.get("content-type"))
         const formData = await req.formData();
         const cover = formData.get("cover") as File 
 
@@ -72,7 +71,7 @@ export async function POST (req: NextRequest, res: NextResponse){
     }
 }
 
-export async function GET(res: NextResponse){
+export async function GET(){
     try {
         const projectsData = (await db.select().from(projects).orderBy(desc(projects.createdAt)));
         if(!projectsData || projectsData.length === 0){

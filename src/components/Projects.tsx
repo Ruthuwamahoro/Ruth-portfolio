@@ -10,16 +10,15 @@ type Project = {
   id: string;
   title: string;
   description: string;
-  techStack: string; // comma-separated string from DB
+  techStack: string; 
   releaseTime: string;
   cover: string;
   livelink?: string;
   githubLink?: string;
 };
 
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 4;
 
-// helper: "next.js, tailwind, drizzle" -> ["next.js", "tailwind", "drizzle"]
 function parseTechStack(techStack?: string): string[] {
   if (!techStack) return [];
   return techStack
@@ -56,13 +55,12 @@ export default function Projects() {
 
   const projects: Project[] = data?.data ?? [];
 
-  const fadeUp = (delayMs: number): React.CSSProperties => ({
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? "translateY(0)" : "translateY(16px)",
-    transition: `opacity 0.6s ease-out ${delayMs}ms, transform 0.6s ease-out ${delayMs}ms`,
-  });
-
   const totalPages = Math.max(1, Math.ceil(projects.length / ITEMS_PER_PAGE));
+  useEffect(() => {
+  if (page > totalPages - 1) {
+    setPage(Math.max(0, totalPages - 1));
+  }
+}, [totalPages, page]);
   const start = page * ITEMS_PER_PAGE;
   const currentItems = useMemo(
     () => projects.slice(start, start + ITEMS_PER_PAGE),
@@ -114,7 +112,7 @@ export default function Projects() {
   
           {/* grid skeleton */}
           <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 2 }).map((_, i) => (
+            {Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}
                 className="flex flex-col overflow-hidden rounded-2xl bg-[#2D2F33] ring-1 ring-white/5"
@@ -327,7 +325,7 @@ export default function Projects() {
         {totalPages > 1 && (
           <div
             data-fade-up
-            style={fadeUp(150)}
+            // style={fadeUp(150)}
             className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-between"
           >
             <p className="font-mono text-[12px] text-[#6C6E72]">

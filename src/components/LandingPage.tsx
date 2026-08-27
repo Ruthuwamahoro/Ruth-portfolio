@@ -150,44 +150,8 @@ import { Badge } from "@/components/ui/badge";
 import { Navbar } from "./Navbar";
 import Link from "next/link";
 
-const mint = "text-[#8FEFC0]";
-const amber = "text-[#E3A867]";
-const sky = "text-[#7EB8E3]";
-const dim = "text-[#7A7D84]";
 
-const CODE_LINES: React.ReactNode[] = [
-  <>
-    <span className={mint}>type</span> <span className={sky}>Engineer</span> = {"{"}
-  </>,
-  <>&nbsp;&nbsp;role: <span className={sky}>string</span></>,
-  <>&nbsp;&nbsp;experience: <span className={sky}>string</span></>,
-  <>&nbsp;&nbsp;stack: <span className={sky}>string[]</span></>,
-  <>&nbsp;&nbsp;focus: <span className={sky}>string</span></>,
-  <>{"}"}</>,
-  <>&nbsp;</>,
-  <>
-    <span className={mint}>const</span> me: <span className={sky}>Engineer</span> = {"{"}
-  </>,
-  <>
-    &nbsp;&nbsp;role: <span className={amber}>&quot;Full Stack Developer&quot;</span>,
-  </>,
-  <>
-    &nbsp;&nbsp;experience: <span className={amber}>&quot;4 years&quot;</span>,
-  </>,
-  <>
-    &nbsp;&nbsp;stack: [<span className={amber}>&quot;TypeScript&quot;</span>,{" "}
-    <span className={amber}>&quot;React&quot;</span>, <span className={amber}>&quot;Next.js&quot;</span>],
-  </>,
-  <>
-    &nbsp;&nbsp;focus: <span className={amber}>&quot;clean code, real-world solutions&quot;</span>,
-  </>,
-  <>{"}"}</>,
-  <>&nbsp;</>,
-  <>
-    <span className={dim}>console</span>.log(
-    <span className={amber}>&quot;Talk is cheap. Show me the code.&quot;</span>)
-  </>,
-];
+
 
 export function Hero() {
   return (
